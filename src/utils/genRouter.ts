@@ -15,31 +15,34 @@ export interface GenRouteType {
 export const filterRoute = (
   routes: MenuType[],
   parentRoute: MenuType | null = null,
-  lastNamePath: string[] = [],
+  ancestorPath: string[] = [],
 ): GenRouteType[] => {
   return (
     routes
-      // 排除菜单类型为B（按钮级别的）
+      // 排除菜单类型为B（按钮级别的）, 并且和父路由匹配的
       .filter(
         (item) => item.menu_type !== 'B' && item.parent_id == parentRoute?.id,
       )
       .map((item) => {
-        // lg:系统管理，system, null
-        // lg:用户管理，user,system/user/index
-        // lg:name router viewPath
+        // lg:  系统管理，  sys   null
+        // lg:  用户管理，  user  system/user/index
         const { menu_name, path, component } = item;
         let fullPath = '';
-        const pathPrefix = lastNamePath.pop() || '';
+        // 不能直接修改ancestorPath,需要拷贝一份
+        const parentPath = [...ancestorPath].pop() || '';
+        // 菜单为完整路径 http://xxx.com
         if (isUrl(path)) {
           fullPath = path;
         } else {
           fullPath = path.startsWith('/') ? path : `/${path}`;
-          fullPath = path.startsWith(pathPrefix)
+          // 如果用户自己拼接了父级路径，就不做处理，没有拼接，就自己拼接一下
+          fullPath = path.startsWith(parentPath)
             ? fullPath
-            : pathPrefix + fullPath;
-          // "/a/b//c//c//d" ===> '/a/b/c/d'
+            : parentPath + fullPath;
+          // 处理多个斜杠 "/a/b//c//c//d" ===> '/a/b/c/d'
           fullPath = [...new Set(uniqueSlash(fullPath).split('/'))].join('/');
         }
+        // 防御性编程
         let realRoutePath = path;
         if (parentRoute) {
           if (fullPath.startsWith(parentRoute.path)) {
@@ -48,16 +51,17 @@ export const filterRoute = (
             realRoutePath = path;
           }
         }
+        // 防止有人在路径中多加了斜杠
         realRoutePath = realRoutePath.startsWith('/')
           ? realRoutePath.slice(1)
           : realRoutePath;
-        realRoutePath = realRoutePath.replace(/http(s)?:\/\//, '');
+        // 去除http(s)://
+        // realRoutePath = realRoutePath.replace(/http(s)?:\/\//, '');
         const route: Partial<GenRouteType> = {
-          path: realRoutePath,
-          name: fullPath,
+          path: fullPath,
+          name: realRoutePath,
           meta: {
             title: menu_name,
-            namePath: lastNamePath.concat(fullPath),
           },
         };
         if (item.menu_type === 'C') {
@@ -65,7 +69,7 @@ export const filterRoute = (
           const children = filterRoute(
             routes,
             item,
-            lastNamePath.concat(fullPath),
+            ancestorPath.concat(fullPath),
           );
           if (children.length) {
             route.component = 'Layout';
@@ -74,11 +78,23 @@ export const filterRoute = (
           } else {
             // 目录没有组件
             route.component = 'Layout';
-            return route;
           }
+          return route;
         } else if (item.menu_type === 'M') {
           // 页面
-          route.component = component;
+          const children = filterRoute(
+            routes,
+            item,
+            ancestorPath.concat(fullPath),
+          );
+          if (children.length) {
+            route.component = 'ParentView';
+            route.children = children;
+            route.redirect = { name: children[0].name };
+          } else {
+            // 目录没有组件
+            route.component = component;
+          }
           return route;
         }
         return undefined;
@@ -88,6 +104,6 @@ export const filterRoute = (
 };
 
 export const genDynamicRouter = (menus: MenuType[]) => {
-  const routeList = filterRoute(menus);
-  console.log(routeList);
+  const routers = filterRoute(menus);
+  return routers;
 };
