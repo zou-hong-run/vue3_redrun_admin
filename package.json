@@ -18,13 +18,17 @@
     "axios": "^1.6.2",
     "element-plus": "^2.4.4",
     "husky": "^8.0.3",
+    "nprogress": "^0.2.0",
+    "pinia": "^2.1.7",
     "sass": "^1.69.5",
-    "vue": "^3.3.13"
+    "vue": "^3.3.13",
+    "vue-router": "4"
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@types/node": "^20.10.5",
+    "@types/nprogress": "^0.2.3",
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
     "@vitejs/plugin-vue": "^4.5.2",

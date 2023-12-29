@@ -7,13 +7,21 @@ import App from './App.vue';
 import elementSvgicon from './components/SvgIcon/element-svgicon';
 import globalComponents from '@/components/index';
 
+import { createPinia } from 'pinia';
+import router from './router';
 // console.log(import.meta.env);
 
 const app = createApp(App);
+// router
+app.use(router);
+// store
+let pinia = createPinia();
+app.use(pinia);
+
 // 注册element组件，设置中文
-// app.use(ElementPlus, {
-//   locale: zhCn,
-// });
+app.use(ElementPlus, {
+  locale: zhCn,
+});
 
 // 导入全局样式
 import '@/styles/index.scss';

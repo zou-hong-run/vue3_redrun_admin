@@ -17,12 +17,21 @@ dependencies:
   husky:
     specifier: ^8.0.3
     version: 8.0.3
+  nprogress:
+    specifier: ^0.2.0
+    version: 0.2.0
+  pinia:
+    specifier: ^2.1.7
+    version: 2.1.7(typescript@5.3.3)(vue@3.3.13)
   sass:
     specifier: ^1.69.5
     version: 1.69.5
   vue:
     specifier: ^3.3.13
     version: 3.3.13(typescript@5.3.3)
+  vue-router:
+    specifier: '4'
+    version: 4.2.5(vue@3.3.13)
 
 devDependencies:
   '@commitlint/cli':
@@ -34,6 +43,9 @@ devDependencies:
   '@types/node':
     specifier: ^20.10.5
     version: 20.10.5
+  '@types/nprogress':
+    specifier: ^0.2.3
+    version: 0.2.3
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.16.0
     version: 6.16.0(@typescript-eslint/parser@6.16.0)(eslint@8.56.0)(typescript@5.3.3)
@@ -792,6 +804,10 @@ packages:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==, tarball: https://registry.npmmirror.com/@types/normalize-package-data/-/normalize-package-data-2.4.4.tgz}
     dev: true
 
+  /@types/nprogress@0.2.3:
+    resolution: {integrity: sha512-k7kRA033QNtC+gLc4VPlfnue58CM1iQLgn1IMAU8VPHGOj7oIHPp9UlhedEnD/Gl8evoCjwkZjlBORtZ3JByUA==, tarball: https://registry.npmmirror.com/@types/nprogress/-/nprogress-0.2.3.tgz}
+    dev: true
+
   /@types/semver@7.5.6:
     resolution: {integrity: sha512-dn1l8LaMea/IjDoHNd9J52uBbInB796CDffS6VdIxvqYCPSG0V0DzHp76GpaWnlhg88uYyPbXCDIowa86ybd5A==, tarball: https://registry.npmmirror.com/@types/semver/-/semver-7.5.6.tgz}
     dev: true
@@ -1005,6 +1021,10 @@ packages:
     dependencies:
       '@vue/compiler-dom': 3.3.13
       '@vue/shared': 3.3.13
+
+  /@vue/devtools-api@6.5.1:
+    resolution: {integrity: sha512-+KpckaAQyfbvshdDW5xQylLni1asvNSGme1JFs8I1+/H5pHEhqUKMEQD/qn3Nx5+/nycBq11qAEi8lk+LXI2dA==, tarball: https://registry.npmmirror.com/@vue/devtools-api/-/devtools-api-6.5.1.tgz}
+    dev: false
 
   /@vue/language-core@1.8.26(typescript@5.3.3):
     resolution: {integrity: sha512-9cmza/Y2YTiOnKZ0Mi9zsNn7Irw+aKirP+5LLWVSNaL3fjKJjW1cD3HGBckasY2RuVh4YycvdA9/Q6EBpVd/7Q==, tarball: https://registry.npmmirror.com/@vue/language-core/-/language-core-1.8.26.tgz}
@@ -3142,6 +3162,10 @@ packages:
       path-key: 4.0.0
     dev: true
 
+  /nprogress@0.2.0:
+    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==, tarball: https://registry.npmmirror.com/nprogress/-/nprogress-0.2.0.tgz}
+    dev: false
+
   /nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==, tarball: https://registry.npmmirror.com/nth-check/-/nth-check-2.1.1.tgz}
     dependencies:
@@ -3320,6 +3344,24 @@ packages:
   /picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==, tarball: https://registry.npmmirror.com/picomatch/-/picomatch-2.3.1.tgz}
     engines: {node: '>=8.6'}
+
+  /pinia@2.1.7(typescript@5.3.3)(vue@3.3.13):
+    resolution: {integrity: sha512-+C2AHFtcFqjPih0zpYuvof37SFxMQ7OEG2zV9jRI12i9BOy3YQVAHwdKtyyc8pDcDyIc33WCIsZaCFWU7WWxGQ==, tarball: https://registry.npmmirror.com/pinia/-/pinia-2.1.7.tgz}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.3.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.5.1
+      typescript: 5.3.3
+      vue: 3.3.13(typescript@5.3.3)
+      vue-demi: 0.14.6(vue@3.3.13)
+    dev: false
 
   /pkg-types@1.0.3:
     resolution: {integrity: sha512-nN7pYi0AQqJnoLPC9eHFQ8AcyaixBUOwvqc5TDnIKCMEE6I0y8P7OKA7fPexsXGCGxQDl/cmrLAp26LhcwxZ4A==, tarball: https://registry.npmmirror.com/pkg-types/-/pkg-types-1.0.3.tgz}
@@ -4267,6 +4309,15 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-router@4.2.5(vue@3.3.13):
+    resolution: {integrity: sha512-DIUpKcyg4+PTQKfFPX88UWhlagBEBEfJ5A8XDXRJLUnZOvcpMF8o/dnL90vpVkGaPbjvXazV/rC1qBKrZlFugw==, tarball: https://registry.npmmirror.com/vue-router/-/vue-router-4.2.5.tgz}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.5.1
+      vue: 3.3.13(typescript@5.3.3)
+    dev: false
 
   /vue-template-compiler@2.7.15:
     resolution: {integrity: sha512-yQxjxMptBL7UAog00O8sANud99C6wJF+7kgbcwqkvA38vCGF7HWE66w0ZFnS/kX5gSoJr/PQ4/oS3Ne2pW37Og==, tarball: https://registry.npmmirror.com/vue-template-compiler/-/vue-template-compiler-2.7.15.tgz}
