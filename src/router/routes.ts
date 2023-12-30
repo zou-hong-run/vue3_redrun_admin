@@ -9,6 +9,17 @@ const constRoutes: RouteRecordRaw[] = [
     meta: {
       title: '首页',
     },
+    redirect: '/desc',
+    children: [
+      {
+        path: '/desc',
+        name: 'desc',
+        component: () => import('@/views/desc/index.vue'),
+        meta: {
+          title: '描述页面',
+        },
+      },
+    ],
   },
   {
     path: '/login',
@@ -16,14 +27,7 @@ const constRoutes: RouteRecordRaw[] = [
     component: () => import('@/views/login/index.vue'),
     meta: {
       title: '登录页面',
-    },
-  },
-  {
-    path: '/:pathMatch(.*)*',
-    redirect: '/404',
-    name: 'not_find',
-    meta: {
-      title: '未知页面',
+      hidden: true,
     },
   },
   {
@@ -31,6 +35,7 @@ const constRoutes: RouteRecordRaw[] = [
     name: '404',
     meta: {
       title: '404页面',
+      hidden: true,
     },
     component: () => import('@/views/error/404.vue'),
   },
@@ -39,8 +44,18 @@ const constRoutes: RouteRecordRaw[] = [
     name: '401',
     meta: {
       title: '401页面',
+      hidden: true,
     },
     component: () => import('@/views/error/401.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: () => import('@/views/error/404.vue'),
+    name: 'not_find',
+    meta: {
+      title: '未知页面',
+      hidden: true,
+    },
   },
 ];
 

@@ -1,10 +1,11 @@
-import { Router } from 'vue-router';
+import { RouteRecordRaw, Router } from 'vue-router';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import { getAccessToken } from '@/utils/auth';
 import { setTitle } from '@/utils/setTitle';
 import { useUserStore } from '@/store/user';
 import { usePermissionsStore } from '@/store/permission';
+import { isUrl } from '@/utils/common';
 
 NProgress.configure({ showSpinner: false });
 
@@ -28,25 +29,25 @@ export const createRouterGuards = (router: Router) => {
         if (userStore.roles.length === 0) {
           try {
             await userStore.GetInfo();
-            let accessRoutes = await permissionsStore.GenerateRoutes();
-            console.log(accessRoutes);
-            // accessRoutes.forEach((route) => {
-            //   // if(!isHttp())
-            //   router.addRoute(route);
-            // });
-            // return {
-            //   replace: true,
-            //   ...to,
-            // };
-            return true;
+            let accessRoutes =
+              (await permissionsStore.GenerateRoutes()) as RouteRecordRaw[];
+            accessRoutes?.forEach((route: RouteRecordRaw) => {
+              if (!isUrl(route.path)) {
+                router.addRoute(route);
+              }
+            });
+            return {
+              path: to.fullPath,
+              replace: true,
+            };
           } catch (error) {
+            console.log('errror', error);
             userStore.LogOut();
           }
         } else {
           return true;
         }
       }
-      console.log('comming');
     } else {
       // 在免登录白名单中，直接放行
       if (whiteList.includes(to.path)) {

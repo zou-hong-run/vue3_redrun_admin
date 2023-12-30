@@ -2,7 +2,7 @@
 
 <template>
   <div class="footer">
-    <span>@版权所有:<b>润：zhr19853149156@163.com</b></span>
+    <span><b>@red润</b> 版权所有<b>邮箱：zhr19853149156@163.com</b></span>
   </div>
 </template>
 

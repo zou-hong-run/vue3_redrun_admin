@@ -12,12 +12,11 @@ import router from './router';
 // console.log(import.meta.env);
 
 const app = createApp(App);
-// router
-app.use(router);
 // store
 let pinia = createPinia();
 app.use(pinia);
-
+// router
+app.use(router);
 // 注册element组件，设置中文
 app.use(ElementPlus, {
   locale: zhCn,

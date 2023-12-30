@@ -1,13 +1,14 @@
 import { MenuType } from '@/api/permissionMenu';
 import { isUrl, uniqueSlash } from './common';
+import { Component } from 'vue';
 
 export interface GenRouteType {
   path: string;
   name: string;
   meta: any;
-  children: GenRouteType[] | [];
-  component: string;
-  redirect: {
+  children?: GenRouteType[] | [];
+  component: string | Component;
+  redirect?: {
     name: string;
   };
 }
@@ -31,8 +32,10 @@ export const filterRoute = (
         // 不能直接修改ancestorPath,需要拷贝一份
         const parentPath = [...ancestorPath].pop() || '';
         // 菜单为完整路径 http://xxx.com
+        let link = '';
         if (isUrl(path)) {
           fullPath = path;
+          link = path;
         } else {
           fullPath = path.startsWith('/') ? path : `/${path}`;
           // 如果用户自己拼接了父级路径，就不做处理，没有拼接，就自己拼接一下
@@ -62,6 +65,7 @@ export const filterRoute = (
           name: realRoutePath,
           meta: {
             title: menu_name,
+            link: link ? link : null,
           },
         };
         if (item.menu_type === 'C') {
@@ -92,7 +96,6 @@ export const filterRoute = (
             route.children = children;
             route.redirect = { name: children[0].name };
           } else {
-            // 目录没有组件
             route.component = component;
           }
           return route;
