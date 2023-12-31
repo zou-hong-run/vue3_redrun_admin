@@ -50,6 +50,7 @@ const activeMenu = computed(() => {
 
 <style scoped lang="scss">
 .aside {
+  border: none;
   width: 100%;
   height: 100%;
 }

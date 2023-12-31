@@ -3,6 +3,7 @@ import { constRoutes } from '@/router/routes';
 import { GenRouteType, genDynamicRouter } from '@/utils/genRouter';
 import { defineStore } from 'pinia';
 import Link from '@/layout/link/index.vue';
+import Empty from '@/layout/empty/index.vue';
 import ParentView from '@/components/ParentView/index.vue';
 import Layout from '@/layout/index.vue';
 import { Component } from 'vue';
@@ -45,7 +46,7 @@ export const usePermissionsStore = defineStore('permissions', {
         this.asideRouters = constRoutes.concat(asideRoutes as RouteRecordRaw[]);
         this.defaultRoutes = asideRoutes as RouteRecordRaw[];
         this.topbarRouters = defaultRoutes as RouteRecordRaw[];
-
+        // console.log(rewriteRoutes);
         return rewriteRoutes;
       }
     },
@@ -69,6 +70,8 @@ const filterAsyncRouter = (
         route.component = ParentView;
       } else if (route.component === 'InnerLink') {
         route.component = Link;
+      } else if (route.component === 'Empty') {
+        route.component = Empty;
       } else {
         route.component = loadComponent(route.component as string) as Component;
       }

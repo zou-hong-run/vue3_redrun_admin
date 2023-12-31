@@ -41,15 +41,20 @@ const settingsStore = useSettingsStore();
   }
   .layout_header {
     border: 1px dashed pink;
-
+    border-bottom: none;
+    border-left: none;
     height: $layout_header_height;
   }
   .layout_main {
     border: 1px dashed pink;
+    border-left: none;
     height: calc(100% - ($layout_header_height + $layout_footer_height));
   }
   .layout_footer {
     border: 1px dashed pink;
+    border-top: none;
+    border-left: none;
+
     height: $layout_footer_height;
   }
 }

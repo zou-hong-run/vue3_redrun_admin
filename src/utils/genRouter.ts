@@ -34,7 +34,7 @@ export const filterRoute = (
         // 菜单为完整路径 http://xxx.com
         let link = '';
         if (isUrl(path)) {
-          fullPath = path;
+          fullPath = '/' + path.replace(/http(s)?:\/\//, '');
           link = path;
         } else {
           fullPath = path.startsWith('/') ? path : `/${path}`;
@@ -80,8 +80,31 @@ export const filterRoute = (
             route.children = children;
             route.redirect = { name: children[0].name };
           } else {
-            // 目录没有组件
+            // 目录
             route.component = 'Layout';
+            if (route.meta.link) {
+              route.children = [
+                {
+                  path: fullPath,
+                  name: realRoutePath,
+                  component: 'InnerLink',
+                  meta: {
+                    title: realRoutePath,
+                    link: link ? link : null,
+                  },
+                },
+              ] as GenRouteType[];
+            } else {
+              route.children = [
+                {
+                  path: fullPath,
+                  component: 'Empty',
+                  meta: {
+                    title: '系统默认空节点',
+                  },
+                },
+              ] as GenRouteType[];
+            }
           }
           return route;
         } else if (item.menu_type === 'M') {
@@ -96,7 +119,21 @@ export const filterRoute = (
             route.children = children;
             route.redirect = { name: children[0].name };
           } else {
-            route.component = component;
+            if (route.meta.link) {
+              route.children = [
+                {
+                  path: fullPath,
+                  name: realRoutePath,
+                  component: 'InnerLink',
+                  meta: {
+                    title: realRoutePath,
+                    link: link ? link : null,
+                  },
+                },
+              ] as GenRouteType[];
+            } else {
+              route.component = component;
+            }
           }
           return route;
         }

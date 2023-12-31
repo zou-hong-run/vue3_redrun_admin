@@ -9,7 +9,7 @@ if (!link) {
 
 <template>
   <iframe
-    :src="link"
+    src="http://localhost:3000/swagger-api"
     frameborder="0"
     width="100%"
     height="100%"
