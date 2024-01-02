@@ -8,3 +8,10 @@ export interface DeptResultType {
 }
 
 export type DeptListResultType = DeptResultType[];
+
+export interface CreateDeptParamType {
+  dept_name: string;
+  parent_id: number | null;
+  remark: string;
+}
+export type CreateDeptResultType = string;
